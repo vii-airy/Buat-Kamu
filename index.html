@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;box-sizing:border-box;font-family:sans-serif}
+body{background:linear-gradient(180deg,#2b1055,#ff5e78);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px;overflow-x:hidden}
+.c{background:#fff;width:100%;max-width:380px;border-radius:25px;padding:25px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.3);position:relative;z-index:2}
+.s{display:none}.s.a{display:block;animation:m .4s}@keyframes m{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+h1{color:#ff2e63;font-size:26px;margin:10px 0}
+p{color:#555;line-height:1.6}
+.e{font-size:70px}
+button{border:none;padding:13px 20px;border-radius:30px;font-weight:bold;margin-top:15px;cursor:pointer}
+.n{background:#ff2e63;color:#fff;width:100%}
+.m{background:#1a1a1a;color:#fff;width:100%}
+.b{background:#eee}.f{display:flex;gap:8px}
+#player{width:1px;height:1px;opacity:0;position:absolute;pointer-events:none}
+.cf{position:fixed;width:9px;height:13px;top:-20px;z-index:99;pointer-events:none}
+/* === KUE & LILIN REALISTIS === */
+.stage{background:radial-gradient(circle at 50% 30%,#3a1c6b,#1a0a2e);border-radius:20px;padding:25px 10px 10px;margin:15px 0}
+.stage p{color:#ffd6e0;font-size:12px}
+.candles{display:flex;justify-content:center;gap:22px;align-items:flex-end;height:130px}
+.candle{width:16px;height:75px;background:linear-gradient(90deg,#ff2e63,#ff8fa3,#ff2e63);border-radius:8px;position:relative;cursor:pointer}
+.candle:before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:3px;height:8px;background:#333;border-radius:2px}
+.flame{position:absolute;top:-48px;left:50%;width:22px;height:38px;transform:translateX(-50%);transform-origin:bottom center;animation:flick .12s infinite alternate;transition:all .6s ease}
+.flame .outer{position:absolute;inset:0;background:radial-gradient(ellipse at center,#fff7ae 0%,#ffde59 25%,#ff9a3d 55%,#ff2e63 85%,transparent 100%);border-radius:50% 50% 50% 50%/65% 65% 35% 35%;filter:blur(.3px)}
+.flame .inner{position:absolute;left:50%;bottom:3px;transform:translateX(-50%);width:9px;height:16px;background:radial-gradient(ellipse,#fff 0%,#fff7ae 60%,transparent 100%);border-radius:50%}
+.flame .glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:55px;height:55px;background:radial-gradient(circle,rgba(255,180,0,.55),transparent 70%);border-radius:50%;z-index:-1}
+@keyframes flick{from{transform:translateX(-50%) scale(1) rotate(-2deg)}to{transform:translateX(-50%) scale(1.08,1.12) rotate(2deg)}}
+.candle.off .flame{animation:mati .7s forwards}
+@keyframes mati{0%{transform:translateX(-50%) scale(1);opacity:1}30%{transform:translateX(-50%) scale(.6,1.3) rotate(4deg);opacity:.9}60%{transform:translateX(-50%) scale(.3,.5) rotate(-3deg);opacity:.5}100%{transform:translateX(-50%) scale(0);opacity:0}}
+.ember{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:#ff6a00;border-radius:50%;opacity:0;box-shadow:0 0 8px #ff6a00}
+.candle.off .ember{animation:bara 1.2s ease-out forwards}
+@keyframes bara{0%{opacity:1;transform:translateX(-50%) scale(1)}100%{opacity:0;transform:translateX(-50%) scale(.3)}}
+.smoke{position:absolute;top:-45px;left:50%;width:14px;height:14px;background:rgba(200,200,200,.7);border-radius:50%;filter:blur(5px);opacity:0;pointer-events:none}
+.candle.off .smoke{animation:asap 1.8s ease-out forwards}
+@keyframes asap{0%{opacity:.8;transform:translateX(-50%) translateY(0) scale(.6)}100%{opacity:0;transform:translateX(-30%) translateY(-45px) scale(2)}}
+.plate{width:170px;height:18px;background:#fff;border-radius:50%;margin:0 auto;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.cakeBody{width:150px;height:55px;background:linear-gradient(180deg,#ffb3c1,#ff5e78);margin:0 auto;border-radius:10px 10px 0 0;position:relative}
+.cakeBody:before{content:'';position:absolute;top:0;left:0;right:0;height:14px;background:#fff;border-radius:10px 10px 50% 50%}
+#pesanTiup{display:none;color:#ff2e63;font-weight:bold;margin-top:10px}
+</style></head><body><div class="c">
+
+<div class="s a" id="s0"><div class="e">🎁</div><h1>Haii, Ada Sesuatu<br>Buat Kamu!</h1><p>Coba klik Next deh, aku udah siapin yang spesial.</p><button class="m" id="tombolLagu" onclick="musik()">▶️ Play Lagunya</button><iframe id="player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe><button class="n" onclick="pindah(1)">Next ➜</button></div>
+
+<div class="s" id="s1"><div class="e">🎂</div><h1>Selamat<br>Ulang Tahun! 🎉</h1><p>Selamat menempuh satu musim lagi dalam hidupmu^^ </p><div class="f"><button class="b" style="flex:1" onclick="pindah(0)">⬅ Back</button><button class="n" style="flex:1" onclick="pindah(2)">Next ➜</button></div></div>
+
+<div class="s" id="s2"><div class="e">💌</div><h1>Doa Buat Kamu</h1><p>Semoga langkahmu membawa lebih banyak cerita baik, hatimu menemukan lebih banyak hal-hal yang layak disyukuri , dan hari-hari mendatang memberimu alasan untuk percaya bahwa hidup masih menyimpan banyak kejutan indah❣️ </p><div class="f"><button class="b" style="flex:1" onclick="pindah(1)">⬅ Back</button><button class="n" style="flex:1" onclick="pindah(3)">Next ➜</button></div></div>
+
+<div class="s" id="s3"><h1>Tiup Lilinnya!</h1><p>Tutup mata, bayangin 1 keinginan kamu...<br><b>Pencet lilinnya satu-satu</b> buat matiin!</p><div class="stage"><div class="candles">
+<div class="candle" onclick="matiin(this)"><div class="flame"><div class="glow"></div><div class="outer"></div><div class="inner"></div></div><div class="ember"></div><div class="smoke"></div></div>
+<div class="candle" onclick="matiin(this)"><div class="flame"><div class="glow"></div><div class="outer"></div><div class="inner"></div></div><div class="ember"></div><div class="smoke"></div></div>
+<div class="candle" onclick="matiin(this)"><div class="flame"><div class="glow"></div><div class="outer"></div><div class="inner"></div></div><div class="ember"></div><div class="smoke"></div></div>
+</div><div class="cakeBody"></div><div class="plate"></div><p style="margin-top:10px">👆 Pencet lilinnya! Kalau mau nyalain lagi, pencet lagi</p></div><p id="pesanTiup">Yeay! Semua lilinnya padam!<br>Semoga wish kamu terkabul yaa! ✨</p><div class="f"><button class="b" style="flex:1" onclick="pindah(2)">⬅ Back</button><button class="n" style="flex:1" onclick="pindah(4)">Next ➜</button></div></div>
+
+<div class="s" id="s4"><div class="e">🥳</div><h1>Yeayy Berhasil! ✨</h1><p>Maaf ya kadonya cuma website ini. Tapi doanya tulus kok. Sekali lagi selamat ulang tahun sayang😘 Semoga tahun ini dan tahun tahun selanjutnya jadi tahun terbaik buat kamu. Terima kasih sudah mau bertahan denganku walau kita hanya virtual dan ldr🫠 i love you sayang🌹🥰</p><button class="n" onclick="conf()">🎉 Pencet Lagi Buat Confetti!</button><div class="f"><button class="b" style="flex:1" onclick="pindah(3)">⬅ Back</button><button class="n" style="flex:1" onclick="pindah(0)">Ulangi ↻</button></div></div>
+
+</div>
+<script>
+function pindah(n){
+  for(let i=0;i<5;i++) document.getElementById('s'+i).style.display='none';
+  document.getElementById('s'+n).style.display='block';
+  if(n==4){ conf(); conf(); }
+  if(n==3){ resetSemua(); }
+}
+function conf(){
+  let cs=['#ff2e63','#ff9a3d','#08d9d6','#ffde59','#a3e635','#ff5e78'];
+  for(let i=0;i<50;i++){let c=document.createElement('div');c.className='cf';c.style.left=Math.random()*100+'vw';c.style.background=cs[i%6];document.body.appendChild(c);let a=c.animate([{transform:'translateY(0) rotate(0deg)'},{transform:'translateY(750px) rotate(360deg)'}],{duration:1500+Math.random()*1000});a.onfinish=()=>c.remove()}
+}
+function matiin(el){
+  if(el.classList.contains('off')){
+    el.classList.remove('off');
+    document.getElementById('pesanTiup').style.display='none';
+    return;
+  }
+  el.classList.add('off');
+  let mati=document.querySelectorAll('.candle.off').length;
+  if(mati==3){
+    setTimeout(()=>{ document.getElementById('pesanTiup').style.display='block'; conf(); },700);
+  }
+}
+function resetSemua(){
+  document.querySelectorAll('.candle').forEach(c=>c.classList.remove('off'));
+  document.getElementById('pesanTiup').style.display='none';
+}
+function musik(){
+  var p=document.getElementById('player');
+  p.src='https://www.youtube.com/embed/57jZJ2QpKRg?autoplay=1&rel=0';
+  document.getElementById('tombolLagu').innerHTML='🎶 Lagunya Lagi Diputer...';
+}
+</script></body></html>
